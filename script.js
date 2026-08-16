@@ -13,6 +13,14 @@ if (toggle && nav) {
 const emailDisplay = document.getElementById('email-display');
 if (CONTACT_EMAIL && emailDisplay) emailDisplay.textContent = CONTACT_EMAIL;
 
+// Kundenstimmen einheitlich anonymisieren
+const testimonialFooters = document.querySelectorAll('.testimonial-card footer');
+testimonialFooters.forEach((footer) => {
+  if (footer.textContent.includes('Mathias')) {
+    footer.textContent = '— Kundenfeedback';
+  }
+});
+
 const form = document.getElementById('project-form');
 const note = document.getElementById('form-note');
 if (form) {
