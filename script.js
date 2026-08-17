@@ -1,6 +1,29 @@
 const CONTACT_EMAIL = "flywithfloekki@gmail.com";
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xaewpjwk";
 
+// Einsatzgebiet klar kommunizieren – sichtbar auf der Seite und in den wichtigsten Meta-Angaben.
+const metaDescription = document.querySelector('meta[name="description"]');
+if (metaDescription) {
+  metaDescription.setAttribute('content', 'Flywithfloekki – Videograf und Videoproduktion für Firmen, Events, Medien, Hochzeiten sowie Drohnen- und FPV-Aufnahmen in ganz Tirol, Vorarlberg und Südtirol.');
+}
+const ogDescription = document.querySelector('meta[property="og:description"]');
+if (ogDescription) {
+  ogDescription.setAttribute('content', 'Videoproduktion für Firmen, Events, Hochzeiten sowie Drohnen- und FPV-Aufnahmen in ganz Tirol, Vorarlberg und Südtirol.');
+}
+
+const heroEyebrow = document.querySelector('.hero .eyebrow');
+if (heroEyebrow) {
+  heroEyebrow.textContent = 'Videograf & Videoproduktion · ganz Tirol · Vorarlberg · Südtirol';
+}
+const heroCopy = document.querySelector('.hero-copy');
+if (heroCopy) {
+  heroCopy.textContent = 'Professionelle Videoproduktion für Firmen, Events, Medien und besondere Momente – in ganz Tirol, Vorarlberg und Südtirol, von klassischer Kamera bis Drohne & FPV.';
+}
+const introRegion = document.querySelector('#intro .intro-grid > div p:nth-of-type(2)');
+if (introRegion) {
+  introRegion.innerHTML = 'Mit Sitz in <strong>Schönwies im Tiroler Oberland</strong> bin ich für Produktionen in Landeck und Imst genauso unterwegs wie in <strong>ganz Tirol, Vorarlberg und Südtirol</strong> – von der ersten Aufnahme bis zum fertigen Video.';
+}
+
 const toggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.nav');
 if (toggle && nav) {
