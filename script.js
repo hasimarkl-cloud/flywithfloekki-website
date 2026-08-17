@@ -1,4 +1,4 @@
-const CONTACT_EMAIL = ""; // Hier später z.B. kontakt@flywithfloekki.at eintragen
+const CONTACT_EMAIL = "flywithfloekki@gmail.com";
 
 const toggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.nav');
@@ -11,7 +11,9 @@ if (toggle && nav) {
 }
 
 const emailDisplay = document.getElementById('email-display');
-if (CONTACT_EMAIL && emailDisplay) emailDisplay.textContent = CONTACT_EMAIL;
+if (CONTACT_EMAIL && emailDisplay) {
+  emailDisplay.innerHTML = `<a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>`;
+}
 
 // Kundenstimmen einheitlich anonymisieren
 const testimonialFooters = document.querySelectorAll('.testimonial-card footer');
@@ -23,6 +25,10 @@ testimonialFooters.forEach((footer) => {
 
 const form = document.getElementById('project-form');
 const note = document.getElementById('form-note');
+if (CONTACT_EMAIL && note) {
+  note.textContent = 'Beim Absenden öffnet sich dein E-Mail-Programm mit der vorbereiteten Projektanfrage.';
+}
+
 if (form) {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
