@@ -39,12 +39,6 @@ if (CONTACT_EMAIL && emailDisplay) {
   emailDisplay.innerHTML = `<a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>`;
 }
 
-// Kundenstimmen einheitlich anonymisieren
-const testimonialFooters = document.querySelectorAll('.testimonial-card footer');
-testimonialFooters.forEach((footer) => {
-  footer.textContent = '— Kundenfeedback';
-});
-
 const form = document.getElementById('project-form');
 const note = document.getElementById('form-note');
 
