@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hasimarkl-cloud.github.io/flywithfloekki-website/sitemap.xml
+Sitemap: https://flywithfloekki.at/sitemap.xml
