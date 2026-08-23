@@ -39,6 +39,43 @@ if (CONTACT_EMAIL && emailDisplay) {
   emailDisplay.innerHTML = `<a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>`;
 }
 
+// Datenschutzfreundliches Zwei-Klick-System für externe Videos.
+// Erst nach einem bewussten Klick wird eine Verbindung zu YouTube, Vimeo oder Instagram aufgebaut.
+document.querySelectorAll('.media-consent').forEach((gate) => {
+  const loadButton = gate.querySelector('.media-load-button');
+  if (!loadButton) return;
+
+  loadButton.addEventListener('click', () => {
+    const src = gate.dataset.src;
+    const title = gate.dataset.title || 'Externes Video';
+    const provider = gate.dataset.provider || '';
+
+    if (!src) return;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.title = title;
+    iframe.loading = 'lazy';
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+
+    if (provider === 'youtube') {
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+    } else if (provider === 'vimeo') {
+      iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+    } else if (provider === 'instagram') {
+      iframe.setAttribute('allow', 'encrypted-media; picture-in-picture; web-share');
+      iframe.setAttribute('allowtransparency', 'true');
+    }
+
+    const frame = gate.closest('.video-frame');
+    if (frame) {
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+    }
+  });
+});
+
 const form = document.getElementById('project-form');
 const note = document.getElementById('form-note');
 
