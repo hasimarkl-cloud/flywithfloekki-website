@@ -16,6 +16,31 @@ if (CONTACT_EMAIL && emailDisplay) {
   emailDisplay.innerHTML = `<a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>`;
 }
 
+// Leistungen klarer für Firmen, laufende Social-Media-Begleitung und Privatpersonen darstellen.
+const serviceCards = document.querySelectorAll('#leistungen .card');
+if (serviceCards.length >= 6) {
+  const companyCard = serviceCards[0];
+  const companyTitle = companyCard.querySelector('h3');
+  const companyText = companyCard.querySelector('p');
+  if (companyTitle) companyTitle.textContent = 'Firmenvideos, Werbung & Social Media';
+  if (companyText) {
+    companyText.textContent = 'Vom einzelnen Image-, Produkt- oder Standortvideo bis zur laufenden Content-Begleitung: Ich produziere Videos für Unternehmen, Firmengelände, Leistungen und Social Media – auf Wunsch auch als mehrmonatige Zusammenarbeit mit regelmäßigem Video-Content.';
+  }
+
+  const individualCard = serviceCards[5];
+  const individualTitle = individualCard.querySelector('h3');
+  const individualText = individualCard.querySelector('p');
+  if (individualTitle) individualTitle.textContent = 'Individuelle Projekte & Komplettproduktion';
+  if (individualText) {
+    individualText.textContent = 'Auch für Privatpersonen: Auto, Motorrad, Photovoltaikanlage, Haus, Grundstück, Hobby oder eine ganz eigene Idee. Von Kamera und Drohne bis Schnitt, Musik, Farbkorrektur und Ton – individuell und komplett aus einer Hand.';
+  }
+}
+
+const contactIntro = document.querySelector('#kontakt .contact-copy > p');
+if (contactIntro) {
+  contactIntro.textContent = 'Ob einzelnes privates Video, Firmenprojekt, Drohnenaufnahme oder laufender Social-Media-Content: Schreib mir kurz, was du planst, wo der Dreh stattfindet und welches Ergebnis du dir vorstellst. Ich melde mich anschließend bei dir.';
+}
+
 // Datenschutzfreundliches Zwei-Klick-System für externe Videos.
 // Erst nach einem bewussten Klick wird eine Verbindung zu YouTube, Vimeo oder Instagram aufgebaut.
 document.querySelectorAll('.media-consent').forEach((gate) => {
@@ -70,6 +95,26 @@ if (form) {
     } else {
       form.prepend(emailLabel);
     }
+  }
+
+  const typeSelect = form.querySelector('select[name="type"]');
+  if (typeSelect) {
+    const existingValues = Array.from(typeSelect.options).map(option => option.textContent);
+    const addOptionBeforeOther = (label) => {
+      if (existingValues.includes(label)) return;
+      const option = document.createElement('option');
+      option.textContent = label;
+      const otherOption = Array.from(typeSelect.options).find(item => item.textContent === 'Sonstiges');
+      if (otherOption) {
+        typeSelect.insertBefore(option, otherOption);
+      } else {
+        typeSelect.appendChild(option);
+      }
+      existingValues.push(label);
+    };
+
+    addOptionBeforeOther('Privates / individuelles Video');
+    addOptionBeforeOther('Social-Media-Begleitung');
   }
 
   if (note) {
