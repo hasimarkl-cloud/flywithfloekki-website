@@ -34,6 +34,65 @@ document.querySelectorAll('.media-consent').forEach((gate) => {
     const provider = gate.dataset.provider || '';
     if (!src) return;
 
+    const frame = gate.closest('.video-frame');
+    if (!frame) return;
+
+    // Instagram blockiert direkte /embed/-iframes in manchen Browsern.
+    // Nach Zustimmung verwenden wir deshalb Instagrams offiziellen Embed-Code
+    // und zeigen zusätzlich immer einen Direktlink als Fallback an.
+    if (provider === 'instagram') {
+      const permalink = src.replace(/\/embed\/?(?:\?.*)?$/, '/');
+
+      frame.innerHTML = '';
+
+      const wrap = document.createElement('div');
+      wrap.className = 'instagram-embed-wrap';
+
+      const blockquote = document.createElement('blockquote');
+      blockquote.className = 'instagram-media';
+      blockquote.setAttribute('data-instgrm-permalink', permalink);
+      blockquote.setAttribute('data-instgrm-version', '14');
+
+      const directLink = document.createElement('a');
+      directLink.href = permalink;
+      directLink.target = '_blank';
+      directLink.rel = 'noopener noreferrer';
+      directLink.className = 'media-consent-link';
+      directLink.textContent = 'Reel direkt auf Instagram öffnen ↗';
+
+      blockquote.appendChild(directLink);
+      wrap.appendChild(blockquote);
+
+      const fallback = document.createElement('p');
+      fallback.className = 'instagram-fallback';
+      const fallbackLink = directLink.cloneNode(true);
+      fallback.append('Falls das Reel hier nicht geladen wird: ');
+      fallback.appendChild(fallbackLink);
+      wrap.appendChild(fallback);
+
+      frame.appendChild(wrap);
+
+      const processEmbeds = () => {
+        if (window.instgrm && window.instgrm.Embeds) {
+          window.instgrm.Embeds.process();
+        }
+      };
+
+      const existingScript = document.querySelector('script[data-instagram-embed]');
+      if (existingScript) {
+        processEmbeds();
+      } else {
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.instagram.com/embed.js';
+        script.setAttribute('data-instagram-embed', 'true');
+        script.onload = processEmbeds;
+        document.body.appendChild(script);
+      }
+
+      return;
+    }
+
     const iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.title = title;
@@ -45,16 +104,10 @@ document.querySelectorAll('.media-consent').forEach((gate) => {
       iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
     } else if (provider === 'vimeo') {
       iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
-    } else if (provider === 'instagram') {
-      iframe.setAttribute('allow', 'encrypted-media; picture-in-picture; web-share');
-      iframe.setAttribute('allowtransparency', 'true');
     }
 
-    const frame = gate.closest('.video-frame');
-    if (frame) {
-      frame.innerHTML = '';
-      frame.appendChild(iframe);
-    }
+    frame.innerHTML = '';
+    frame.appendChild(iframe);
   });
 });
 
