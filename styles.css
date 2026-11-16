@@ -207,3 +207,43 @@
 .wko-privacy-note{color:#a6a096;font-size:12px;margin:22px 0 0}
 @media(max-width:1000px){.wko-intro{grid-template-columns:1fr 260px;gap:25px}.wko-video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.wko-video-card .media-consent strong{font-size:21px}}
 @media(max-width:720px){.wko-showcase{padding:65px 0}.wko-intro{grid-template-columns:1fr;gap:28px}.wko-intro-text p{font-size:16px}.wko-client{max-width:320px}.wko-heading-row,.wko-trailer-heading{align-items:start;flex-direction:column;gap:12px}.wko-heading-row p,.wko-trailer-heading p{max-width:none}.wko-video-grid{grid-template-columns:1fr}.wko-video-card .media-consent strong{font-size:clamp(19px,5vw,27px)}}
+
+/* Startseite: 2026-11-16 – zusammenhängender Videobereich, klarer Textteil */
+html{scroll-padding-top:96px}
+#wko-tirolskills,#portfolio,#intro,#leistungen,#referenzen,#ueber-mich,#kontakt{scroll-margin-top:96px}
+.wko-showcase{padding-bottom:65px}
+#portfolio{background:#f5f3ee;padding-top:72px;padding-bottom:84px;border-top:1px solid rgba(216,193,139,.22)}
+#portfolio .section-heading{margin-bottom:32px}
+#portfolio .section-heading h2{font-size:clamp(36px,4vw,55px);line-height:1.12}
+#portfolio .portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+#portfolio .portfolio-grid .portfolio-card.featured-video{grid-column:auto}
+#portfolio .portfolio-grid .portfolio-card:last-child{grid-column:1/-1;width:min(100%,610px);justify-self:center}
+#portfolio .portfolio-card{display:flex;flex-direction:column;min-width:0}
+#portfolio .portfolio-meta{min-height:67px;align-items:center}
+#portfolio .portfolio-card > p{margin:0;padding:2px 19px 21px;background:#171717;color:#d8c18b}
+#portfolio .social-work-head{border-top:1px solid #ddd7cd;margin-top:56px;padding-top:39px;margin-bottom:23px}
+#portfolio .reel-grid{grid-template-columns:repeat(3,minmax(0,285px));gap:18px;justify-content:center}
+#portfolio .reel-card .portfolio-meta{align-items:flex-start;flex-direction:column;gap:5px}
+#portfolio .reel-card .portfolio-meta strong{text-align:left}
+#intro{padding-top:92px;padding-bottom:82px}
+#intro .section-label{margin-bottom:8px}
+#leistungen{padding-top:83px}
+@media(max-width:900px){
+  #portfolio .portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #portfolio .reel-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #portfolio .portfolio-meta{align-items:start;flex-direction:column;gap:6px}
+  #portfolio .portfolio-meta strong{text-align:left}
+}
+@media(max-width:680px){
+  html{scroll-padding-top:78px}
+  #wko-tirolskills,#portfolio,#intro,#leistungen,#referenzen,#ueber-mich,#kontakt{scroll-margin-top:78px}
+  .wko-showcase{padding-bottom:52px}
+  #portfolio{padding-top:54px;padding-bottom:65px}
+  #portfolio .portfolio-grid{grid-template-columns:1fr}
+  #portfolio .portfolio-grid .portfolio-card:last-child{grid-column:auto;width:100%}
+  #portfolio .reel-grid{grid-template-columns:1fr;justify-items:center}
+  #portfolio .reel-grid .reel-card{width:min(100%,330px)}
+  #portfolio .social-work-head{margin-top:43px;padding-top:32px}
+  #intro{padding-top:68px;padding-bottom:61px}
+  #leistungen{padding-top:65px}
+}
