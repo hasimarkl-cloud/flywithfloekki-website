@@ -270,3 +270,11 @@ html{scroll-padding-top:96px}
   .nav-service-links{position:static;min-width:0;margin:4px 0 0;box-shadow:none}
   .nav-services summary{justify-content:space-between}
 }
+
+/* Kurze, lesbare Projekttexte direkt unter den vorhandenen Videos */
+.wko-video-card{display:flex;flex-direction:column}
+.wko-project-description{margin:0;padding:0 16px 18px;color:#d2ccc1;font-size:13px;line-height:1.55}
+.wko-project-description strong{color:#d8c18b;font-size:11px;font-weight:700}
+.portfolio-card .project-video-description,#portfolio .portfolio-card > p.project-video-description{margin:0;padding:2px 19px 20px;background:#171717;color:#dad7d1;font-size:14px;line-height:1.65}
+.project-video-description .text-link{display:inline-block;margin-top:7px;color:#ead9b4}
+#portfolio article[id],#event-beispiele article[id],#hochzeitsfilm-video{scroll-margin-top:100px}
