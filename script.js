@@ -3,17 +3,20 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/xaewpjwk";
 
 const toggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.nav');
+const servicesMenu = document.querySelector('.nav-services');
 
 if (toggle && nav) {
   toggle.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
     toggle.setAttribute('aria-expanded', String(open));
+    if (!open && servicesMenu) servicesMenu.open = false;
   });
 
   nav.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       nav.classList.remove('open');
       toggle.setAttribute('aria-expanded', 'false');
+      if (servicesMenu) servicesMenu.open = false;
     });
   });
 }
@@ -158,6 +161,18 @@ if (form) {
         submitButton.disabled = false;
         submitButton.textContent = originalButtonText;
       }
+    }
+  });
+}
+
+if (servicesMenu) {
+  document.addEventListener('click', (event) => {
+    if (!servicesMenu.contains(event.target)) servicesMenu.open = false;
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && servicesMenu.open) {
+      servicesMenu.open = false;
+      servicesMenu.querySelector('summary').focus();
     }
   });
 }
