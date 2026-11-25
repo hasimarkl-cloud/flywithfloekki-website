@@ -278,3 +278,17 @@ html{scroll-padding-top:96px}
 .portfolio-card .project-video-description,#portfolio .portfolio-card > p.project-video-description{margin:0;padding:2px 19px 20px;background:#171717;color:#dad7d1;font-size:14px;line-height:1.65}
 .project-video-description .text-link{display:inline-block;margin-top:7px;color:#ead9b4}
 #portfolio article[id],#event-beispiele article[id],#hochzeitsfilm-video{scroll-margin-top:100px}
+
+/* Compact navigation and service cards */
+.footer-grid{grid-template-columns:1.25fr 1fr .85fr;gap:32px}
+.footer-region-link{display:inline-block;margin-top:7px;color:#c7c7c7;font-size:13px}
+.footer-region-link:hover,.footer-region-link:focus-visible{color:#fff;text-decoration:underline}
+#leistungen .card.dark-card{grid-column:auto;min-height:280px}
+#leistungen .card:not(.service-link-card) h3{margin:22px 0 10px}
+#leistungen .service-primary-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:#ead9b4}
+#leistungen .service-primary-link span{font-size:18px;line-height:1}
+#leistungen .service-primary-link:hover{text-decoration:underline}
+#leistungen .service-link-card:focus-within{outline:2px solid var(--gold);outline-offset:2px}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:26px}}
+@media(max-width:600px){.footer-grid{grid-template-columns:1fr;gap:22px}}
+@media(prefers-reduced-motion:reduce){#leistungen .card{transition:none}#leistungen .card:hover{transform:none}}
