@@ -53,6 +53,19 @@
     "url": "https://flywithfloekki.at/"
   }
   </script>
+  <style>
+    /* Homepage only: self-hosted hero showreel. */
+    .hero .hero-video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;opacity:0}
+    .hero .hero-video.has-frame{opacity:1}
+    .hero .hero-overlay{background:linear-gradient(90deg,rgba(0,0,0,.74) 0%,rgba(0,0,0,.48) 52%,rgba(0,0,0,.16) 100%);pointer-events:none}
+    .hero .hero-content{text-shadow:0 2px 12px rgba(0,0,0,.4)}
+    .hero .hero-actions{text-shadow:none}
+    .hero .hero-video-toggle{position:absolute;right:90px;bottom:25px;z-index:3;min-height:44px;padding:0 15px;border:1px solid rgba(255,255,255,.55);border-radius:999px;color:#fff;background:rgba(0,0,0,.4);font:inherit;font-size:13px;cursor:pointer}
+    .hero .hero-video-toggle:focus-visible{outline:2px solid #fff;outline-offset:3px}
+    .hero .hero-video-toggle[hidden]{display:none}
+    @media(max-width:900px){.hero .hero-overlay{background:rgba(0,0,0,.58)}}
+    @media(max-width:600px){.hero .hero-video-toggle{right:70px;bottom:16px}.hero .scroll-hint{right:16px;bottom:16px}.hero .hero-content{padding-bottom:55px}}
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -82,7 +95,8 @@
 
   <main id="top">
     <section class="hero" aria-label="Flywithfloekki Videograf und Videoproduktion Tirol">
-      <div class="hero-media hero-fallback" role="img" aria-label="Stilisierte Berglandschaft"></div>
+      <div class="hero-media hero-fallback" aria-hidden="true"></div>
+      <video id="hero-background-video" class="hero-video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="assets/hero-background-complete%20(1).mp4"></video>
       <div class="hero-overlay"></div>
       <div class="hero-content container">
         <p class="eyebrow">Videograf & Videoproduktion · ganz Tirol · Vorarlberg · Südtirol</p>
@@ -93,6 +107,7 @@
           <a class="button button-ghost" href="#wko-tirolskills">Arbeiten ansehen</a>
         </div>
       </div>
+      <button id="hero-video-toggle" class="hero-video-toggle" type="button" hidden>Video abspielen</button>
       <a class="scroll-hint" href="#intro" aria-label="Zur Vorstellung scrollen">↓</a>
     </section>
 
@@ -672,5 +687,39 @@
   </footer>
 
   <script src="script.js?v=20261118-leistungen"></script>
+  <script>
+    (function () {
+      const video = document.getElementById('hero-background-video');
+      const toggle = document.getElementById('hero-video-toggle');
+      if (!video || !toggle) return;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const saveData = Boolean(navigator.connection && navigator.connection.saveData);
+      function updateButton() {
+        toggle.textContent = video.paused ? 'Video abspielen' : 'Video pausieren';
+      }
+      function playVideo() {
+        if (!video.hasAttribute('src')) video.src = video.dataset.src;
+        video.muted = true;
+        const playback = video.play();
+        if (playback && playback.catch) playback.catch(updateButton);
+      }
+      video.addEventListener('loadeddata', function () { video.classList.add('has-frame'); });
+      video.addEventListener('playing', function () { video.classList.add('has-frame'); updateButton(); });
+      video.addEventListener('pause', updateButton);
+      video.addEventListener('error', function () {
+        video.classList.remove('has-frame');
+        updateButton();
+      });
+      toggle.addEventListener('click', function () {
+        if (video.paused) playVideo(); else video.pause();
+      });
+      if (reduced.addEventListener) reduced.addEventListener('change', function (event) {
+        if (event.matches) { video.pause(); video.classList.remove('has-frame'); }
+      });
+      toggle.hidden = false;
+      updateButton();
+      if (!reduced.matches && !saveData) playVideo();
+    })();
+  </script>
 </body>
 </html>
